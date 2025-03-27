@@ -1,5 +1,4 @@
 #pragma once
-//#include <utility>
 #include <iostream>
 
 template <class T>
@@ -167,6 +166,15 @@ public:
         if (node->right_)
             res += howManyNodes(node->right_);
         return res;
+    }
+
+    int getHeight(Node* node = staticroot_) {
+        if (node == nullptr) {
+            return 0;
+        }
+        int leftHeight = getHeight(node->left_);
+        int rightHeight = getHeight(node->right_);
+        return std::max(leftHeight, rightHeight) + 1;
     }
 };
 
