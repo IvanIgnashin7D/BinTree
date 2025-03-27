@@ -95,6 +95,41 @@ public:
                 current->right_ = newNode;
                 return;
             }
+            if (current->right_ == nullptr && current->left_ == nullptr) {
+                Node* newNode = new Node(key);
+                if (key < current->key_) {
+                    current->left_ = newNode;
+                    return;
+                }
+                if (key > current->key_) {
+                    current->right_ = newNode;
+                    return;
+                }
+            }
+        }
+    }
+
+    void deleteItem(T key) {
+        Node* current = searchItem(key);
+        if (current == nullptr)
+            return;
+        if (current->right_ == nullptr) {
+            current = current->left_;
+            return;
+        }
+        if (current->right_->left_ == nullptr) {
+            current->right_->left_ = current->left_;
+            current = current->right_;
+            return;
+        }
+        if (current->right_->left_ != nullptr) {
+            Node* curMin = current;
+            while (curMin->left_ != nullptr) {
+                curMin = curMin->left_;
+            }
+            current = curMin;
+            deleteItem(curMin->key_);
+            return;
         }
     }
 };
