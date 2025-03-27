@@ -21,4 +21,7 @@ int main() {
 	std::cout << tree.getHeight() << '\n';
 	tree.inorderWalkIterative();
 	tree.inorderWalk();
+	std::cout << '\n';
+	tree.walkByLevels();
+	std::cout << '\n';
 }

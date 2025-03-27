@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <queue>
 
 template <class T>
 class BinarySearchTree
@@ -205,11 +206,30 @@ public:
     }
 
     void inorderWalk(Node* current = staticroot_) {
-        if (current == nullptr) return;  // Базовый случай
+        if (current == nullptr) return;
 
-        inorderWalk(current->left_);     // Левое поддерево
-        std::cout << current->key_ << ", ";    // Вывод текущего узла
-        inorderWalk(current->right_);    // Правое поддерево
+        inorderWalk(current->left_);
+        std::cout << current->key_ << ", ";
+        inorderWalk(current->right_);
+    }
+
+    void walkByLevels() {
+        if (!root_) return;
+
+        std::queue<Node*> q;
+        q.push(root_);  // Добавляем корень в очередь
+
+        while (!q.empty()) {
+            Node* current = q.front();  // Берем первый элемент
+            q.pop();                        // Удаляем его из очереди
+            std::cout << current->key_ << ", ";    // Обрабатываем (выводим)
+
+            // Добавляем детей в очередь
+            if (current->left_)
+                q.push(current->left_);
+            if (current->right_)
+                q.push(current->right_);
+        }
     }
 };
 
