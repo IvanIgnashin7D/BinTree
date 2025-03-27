@@ -18,6 +18,7 @@ private:
     };
 
     Node* root_;
+    static Node* staticroot_;
 
     void clear(Node* node) {
         if (node) {
@@ -28,7 +29,7 @@ private:
     }
 
 public:
-    BinarySearchTree() : root_(nullptr) {}
+    BinarySearchTree() : root_(nullptr) { staticroot_ = root_; }
 
     BinarySearchTree(BinarySearchTree&& other) noexcept
         : root_(other.root_)
@@ -77,34 +78,37 @@ public:
         //Node* newNode = new Node(key);
         Node* current = root_;
         while (true) {
-            if (current->left_->key_ > key)
+            if (current->left_ == nullptr && key < current->key_) {
+                Node* newNode = new Node(key);
+                current->left_ = newNode;
+                return;
+            }
+            if (current->right_ == nullptr && key > current->key_) {
+                Node* newNode = new Node(key);
+                current->right_ = newNode;
+                return;
+            }
+            if (current->left_ && current->key_ > key) {
                 current = current->left_;
-            if (current->right_->key_ < key)
+                continue;
+            }
+            if (current->right_ && current->key_ < key) {
                 current = current->right_;
-            if (current->left_->key_ < key && current->key_ > key) {
+                continue;
+            }
+            if (current->left_ && current->left_->key_ < key && current->key_ > key) {
                 Node* newNode = new Node(key);
                 newNode->left_ = current->left_->left_;
                 newNode->right_ = current->left_->right_;
                 current->left_ = newNode;
                 return;
             }
-            if (current->right_->key_ > key && current->key_ < key) {
+            if (current->right_ && current->right_->key_ > key && current->key_ < key) {
                 Node* newNode = new Node(key);
                 newNode->left_ = current->right_->left_;
                 newNode->right_ = current->right_->right_;
                 current->right_ = newNode;
                 return;
-            }
-            if (current->right_ == nullptr && current->left_ == nullptr) {
-                Node* newNode = new Node(key);
-                if (key < current->key_) {
-                    current->left_ = newNode;
-                    return;
-                }
-                if (key > current->key_) {
-                    current->right_ = newNode;
-                    return;
-                }
             }
         }
     }
@@ -132,4 +136,25 @@ public:
             return;
         }
     }
+
+    void print(Node* node = staticroot_, int space = 0, int level = 4) {
+        if (node == nullptr) {
+            return;
+        }
+
+        space += level;
+
+        print(node->right_, space);
+
+        std::cout << '\n';
+        for (int i = level; i < space; i++) {
+            std::cout << ' ';
+        }
+        std::cout << "L__ " << node->key_ << '\n';
+
+        print(node->left_, space);
+    }
 };
+
+template <class T>
+typename BinarySearchTree<T>::Node* BinarySearchTree<T>::staticroot_ = nullptr;
