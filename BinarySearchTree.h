@@ -72,7 +72,29 @@ public:
     void insertItem(T key) {
         if (root_ == nullptr) {
             root_ = new Node(key);
-            std::cout << root_->key_;
+            return;
+        }
+        //Node* newNode = new Node(key);
+        Node* current = root_;
+        while (true) {
+            if (current->left_->key_ > key)
+                current = current->left_;
+            if (current->right_->key_ < key)
+                current = current->right_;
+            if (current->left_->key_ < key && current->key_ > key) {
+                Node* newNode = new Node(key);
+                newNode->left_ = current->left_->left_;
+                newNode->right_ = current->left_->right_;
+                current->left_ = newNode;
+                return;
+            }
+            if (current->right_->key_ > key && current->key_ < key) {
+                Node* newNode = new Node(key);
+                newNode->left_ = current->right_->left_;
+                newNode->right_ = current->right_->right_;
+                current->right_ = newNode;
+                return;
+            }
         }
     }
 };
