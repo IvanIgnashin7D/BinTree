@@ -73,6 +73,7 @@ public:
     void insertItem(T key) {
         if (root_ == nullptr) {
             root_ = new Node(key);
+            staticroot_ = root_;
             return;
         }
         //Node* newNode = new Node(key);
@@ -137,20 +138,20 @@ public:
         }
     }
 
-    void print(Node* node = staticroot_, int space = 0, int level = 4) {
+    void print(Node* node = staticroot_, int space = 0, int step = 4) {
         if (node == nullptr) {
             return;
         }
 
-        space += level;
+        space += step;
 
         print(node->right_, space);
 
         std::cout << '\n';
-        for (int i = level; i < space; i++) {
+        for (int i = step; i < space; i++) {
             std::cout << ' ';
         }
-        std::cout << "L__ " << node->key_ << '\n';
+        std::cout << "--(" << node->key_ << ')' << '\n';
 
         print(node->left_, space);
     }
