@@ -205,6 +205,25 @@ public:
         std::cout << '\n';
     }
 
+    void inorderWalkIterative(std::vector<T> &result) {
+        std::stack<Node*> stack;
+        Node* current = root_;
+
+        while (current != nullptr || !stack.empty()) {
+            while (current != nullptr) {
+                stack.push(current);
+                current = current->left_;
+            }
+
+            current = stack.top();
+            stack.pop();
+            result.push_back(current->key_);
+
+            current = current->right_;
+        }
+        return;
+    }
+
     void inorderWalk(Node* current = staticroot_) {
         if (current == nullptr) return;
 
@@ -217,14 +236,13 @@ public:
         if (!root_) return;
 
         std::queue<Node*> q;
-        q.push(root_);  // Добавляем корень в очередь
+        q.push(root_);
 
         while (!q.empty()) {
-            Node* current = q.front();  // Берем первый элемент
-            q.pop();                        // Удаляем его из очереди
-            std::cout << current->key_ << ", ";    // Обрабатываем (выводим)
+            Node* current = q.front();
+            q.pop();
+            std::cout << current->key_ << ", ";
 
-            // Добавляем детей в очередь
             if (current->left_)
                 q.push(current->left_);
             if (current->right_)
