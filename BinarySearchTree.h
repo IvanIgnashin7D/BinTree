@@ -155,6 +155,19 @@ public:
 
         print(node->left_, space);
     }
+
+    int howManyNodes(Node* node = staticroot_) {
+        int res = 0;
+        if (!node)
+            return 0;
+        if (node)
+            res++;
+        if (node->left_)
+            res += howManyNodes(node->left_);
+        if (node->right_)
+            res += howManyNodes(node->right_);
+        return res;
+    }
 };
 
 template <class T>

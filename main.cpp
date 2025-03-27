@@ -4,7 +4,7 @@
 
 int main() {
 	BinarySearchTree<int> tree;
-	std::cout << (tree.searchItem(1) ? 1 : 0);
+	std::cout << (tree.searchItem(1) ? 1 : 0) << '\n';
 	tree.insertItem(4);
 
 	tree.insertItem(2);
@@ -16,4 +16,5 @@ int main() {
 	tree.insertItem(7);
 
 	tree.print();
+	std::cout << tree.howManyNodes() << '\n';
 }
