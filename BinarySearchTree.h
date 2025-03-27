@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <vector>
+#include <stack>
 
 template <class T>
 class BinarySearchTree
@@ -178,6 +180,28 @@ public:
         int leftHeight = getHeight(node->left_);
         int rightHeight = getHeight(node->right_);
         return std::max(leftHeight, rightHeight) + 1;
+    }
+
+    void inorderWalkIterative() {
+        std::vector<T> result;
+        std::stack<Node*> stack;
+        Node* current = root_;
+
+        while (current != nullptr || !stack.empty()) {
+            while (current != nullptr) {
+                stack.push(current);
+                current = current->left_;
+            }
+
+            current = stack.top();
+            stack.pop();
+            result.push_back(current->key_);
+
+            current = current->right_;
+        }
+
+        for (T i : result) std::cout << i << ", ";
+        std::cout << '\n';
     }
 };
 
