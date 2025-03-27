@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-#include <queue>
+#include "QueueVector.h"
 
 template <class T>
 class BinarySearchTree
@@ -147,16 +147,16 @@ public:
         print(node->left_, space);
     }
 
-    int howManyNodes(Node* node = staticroot_) {
+    int getNumberOfNodes(Node* node = staticroot_) {
         int res = 0;
         if (!node)
             return 0;
         if (node)
             res++;
         if (node->left_)
-            res += howManyNodes(node->left_);
+            res += getNumberOfNodes(node->left_);
         if (node->right_)
-            res += howManyNodes(node->right_);
+            res += getNumberOfNodes(node->right_);
         return res;
     }
 
@@ -221,18 +221,17 @@ public:
     void walkByLevels() {
         if (!root_) return;
 
-        std::queue<Node*> q;
-        q.push(root_);
+        QueueVector<Node*> q(2);
+        q.enQueue(root_);
 
-        while (!q.empty()) {
-            Node* current = q.front();
-            q.pop();
+        while (!q.isEmpty()) {
+            Node* current = q.deQueue();
             std::cout << current->key_ << ", ";
 
             if (current->left_)
-                q.push(current->left_);
+                q.enQueue(current->left_);
             if (current->right_)
-                q.push(current->right_);
+                q.enQueue(current->right_);
         }
     }
 };

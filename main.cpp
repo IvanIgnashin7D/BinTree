@@ -21,7 +21,7 @@ int main() {
 	tree1.insertItem(8);
 
 	tree1.print();
-	std::cout << tree1.howManyNodes() << '\n';
+	std::cout << tree1.getNumberOfNodes() << '\n';
 	std::cout << tree1.getHeight() << '\n';
 	tree1.inorderWalkIterative();
 	tree1.inorderWalk();
