@@ -1,5 +1,6 @@
 #pragma once
-#include <utility> // для std::move
+//#include <utility>
+#include <iostream>
 
 template <class T>
 class BinarySearchTree
@@ -18,7 +19,6 @@ private:
 
     Node* root_;
 
-    // Вспомогательная функция для рекурсивного удаления узлов
     void clear(Node* node) {
         if (node) {
             clear(node->left_);
@@ -28,35 +28,51 @@ private:
     }
 
 public:
-    // Конструктор по умолчанию
     BinarySearchTree() : root_(nullptr) {}
 
-    // Конструктор перемещения
     BinarySearchTree(BinarySearchTree&& other) noexcept
         : root_(other.root_)
     {
         other.root_ = nullptr;
     }
 
-    // Оператор перемещающего присваивания
     BinarySearchTree& operator=(BinarySearchTree&& other) noexcept {
         if (this != &other) {
-            clear(root_);      // Удаляем текущее дерево
+            clear(root_);
             root_ = other.root_;
             other.root_ = nullptr;
         }
         return *this;
     }
 
-    // Деструктор
     ~BinarySearchTree() {
         clear(root_);
     }
 
-    // Удаляем копирующие операции (если дерево не должно копироваться)
     BinarySearchTree(const BinarySearchTree&) = delete;
     BinarySearchTree& operator=(const BinarySearchTree&) = delete;
 
-    // Дополнительные методы (для примера)
-    bool empty() const { return root_ == nullptr; }
+
+    Node* searchItem(T key) {
+        if (root_ == nullptr)
+            return nullptr;
+        Node* current = root_;
+        while (true) {
+            if (current->key_ == key)
+                return current;
+            if (current->left_->key_ < key)
+                current = current->left_;
+            if (current->right_->key_ > key)
+                current = current->right_;
+            else
+                return nullptr;
+        }
+    }
+
+    void insertItem(T key) {
+        if (root_ == nullptr) {
+            root_ = new Node(key);
+            std::cout << root_->key_;
+        }
+    }
 };

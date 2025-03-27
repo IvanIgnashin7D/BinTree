@@ -1,6 +1,9 @@
 #include <iostream>
+#include "BinarySearchTree.h"
 
 
 int main() {
-	return 0;
+	BinarySearchTree<int> tree;
+	std::cout << (tree.searchItem(1) ? 1 : 0);
+	tree.insertItem(1);
 }
