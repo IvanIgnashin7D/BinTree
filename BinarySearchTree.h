@@ -60,33 +60,36 @@ public:
         while (true) {
             if (current->key_ == key)
                 return current;
-            if (current->left_->key_ < key)
+            if (current->left_ && current->left_->key_ < key)
                 current = current->left_;
-            if (current->right_->key_ > key)
+            if (current->right_ && current->right_->key_ > key)
                 current = current->right_;
             else
                 return nullptr;
         }
     }
 
-    void insertItem(T key) {
+    bool insertItem(T key) {
         if (root_ == nullptr) {
             root_ = new Node(key);
             staticroot_ = root_;
-            return;
+            return true;
         }
-        //Node* newNode = new Node(key);
+        
+        if (searchItem(key)) 
+            return false;
+
         Node* current = root_;
         while (true) {
             if (current->left_ == nullptr && key < current->key_) {
                 Node* newNode = new Node(key);
                 current->left_ = newNode;
-                return;
+                return true;
             }
             if (current->right_ == nullptr && key > current->key_) {
                 Node* newNode = new Node(key);
                 current->right_ = newNode;
-                return;
+                return true;
             }
             if (current->left_ && current->key_ > key) {
                 current = current->left_;
@@ -101,14 +104,14 @@ public:
                 newNode->left_ = current->left_->left_;
                 newNode->right_ = current->left_->right_;
                 current->left_ = newNode;
-                return;
+                return true;
             }
             if (current->right_ && current->right_->key_ > key && current->key_ < key) {
                 Node* newNode = new Node(key);
                 newNode->left_ = current->right_->left_;
                 newNode->right_ = current->right_->right_;
                 current->right_ = newNode;
-                return;
+                return true;
             }
         }
     }
