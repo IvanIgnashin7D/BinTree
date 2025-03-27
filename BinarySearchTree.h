@@ -102,20 +102,6 @@ public:
                 current = current->right_;
                 continue;
             }
-            if (current->left_ && current->left_->key_ < key && current->key_ > key) {
-                Node* newNode = new Node(key);
-                newNode->left_ = current->left_->left_;
-                newNode->right_ = current->left_->right_;
-                current->left_ = newNode;
-                return true;
-            }
-            if (current->right_ && current->right_->key_ > key && current->key_ < key) {
-                Node* newNode = new Node(key);
-                newNode->left_ = current->right_->left_;
-                newNode->right_ = current->right_->right_;
-                current->right_ = newNode;
-                return true;
-            }
         }
     }
 
