@@ -203,6 +203,14 @@ public:
         for (T i : result) std::cout << i << ", ";
         std::cout << '\n';
     }
+
+    void inorderWalk(Node* current = staticroot_) {
+        if (current == nullptr) return;  // Базовый случай
+
+        inorderWalk(current->left_);     // Левое поддерево
+        std::cout << current->key_ << ", ";    // Вывод текущего узла
+        inorderWalk(current->right_);    // Правое поддерево
+    }
 };
 
 template <class T>

@@ -20,4 +20,5 @@ int main() {
 	std::cout << tree.howManyNodes() << '\n';
 	std::cout << tree.getHeight() << '\n';
 	tree.inorderWalkIterative();
+	tree.inorderWalk();
 }
