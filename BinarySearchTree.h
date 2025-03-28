@@ -55,7 +55,7 @@ public:
 	BinarySearchTree& operator=(const BinarySearchTree&) = delete;
 
 
-	Node* searchItem(T key) {
+	Node* searchIterative(T key) {
 		if (root_ == nullptr)
 			return nullptr;
 		Node* current = root_;
@@ -71,13 +71,13 @@ public:
 		}
 	}
 
-	bool insertItem(T key) {
+	bool insert(T key) {
 		if (root_ == nullptr) {
 			root_ = new Node(key);
 			return true;
 		}
 		
-		if (searchItem(key)) 
+		if (searchIterative(key)) 
 			return false;
 
 		Node* current = root_;
@@ -103,8 +103,8 @@ public:
 		}
 	}
 
-	void deleteItem(T key) {
-		Node* current = searchItem(key);
+	void remove(T key) {
+		Node* current = searchIterative(key);
 		if (current == nullptr)
 			return;
 		if (current->right_ == nullptr) {
@@ -122,19 +122,19 @@ public:
 				curMin = curMin->left_;
 			}
 			current = curMin;
-			deleteItem(curMin->key_);
+			remove(curMin->key_);
 			return;
 		}
 	}
 
-	void print(Node* node, int space = 0, int step = 4) {
+	void output(Node* node, int space = 0, int step = 4) {
 		if (node == nullptr) {
 			return;
 		}
 
 		space += step;
 
-		print(node->right_, space);
+		output(node->right_, space);
 
 		std::cout << '\n';
 		for (int i = step; i < space; i++) {
@@ -142,11 +142,11 @@ public:
 		}
 		std::cout << "--(" << node->key_ << ')' << '\n';
 
-		print(node->left_, space);
+		output(node->left_, space);
 	}
 
-	void print() {
-		print(root_);
+	void output() {
+		output(root_);
 	}
 
 

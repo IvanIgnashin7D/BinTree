@@ -8,19 +8,19 @@ bool equalNodes(BinarySearchTree<T>& tree1, BinarySearchTree<T>& tree2);
 
 int main() {
 	BinarySearchTree<int> tree1;
-	std::cout << (tree1.searchItem(1) ? 1 : 0) << '\n';
-	tree1.insertItem(4);
+	std::cout << (tree1.searchIterative(1) ? 1 : 0) << '\n';
+	tree1.insert(4);
 
-	tree1.insertItem(2);
-	tree1.insertItem(3);
-	tree1.insertItem(1);
+	tree1.insert(2);
+	tree1.insert(3);
+	tree1.insert(1);
 	
-	tree1.insertItem(6);
-	tree1.insertItem(5);
-	tree1.insertItem(7);
-	tree1.insertItem(8);
+	tree1.insert(6);
+	tree1.insert(5);
+	tree1.insert(7);
+	tree1.insert(8);
 
-	tree1.print();
+	tree1.output();
 	std::cout << "Tree1 number of nodes: " << tree1.getNumberOfNodes() << '\n';
 
 	std::cout << "Tree1 height: " << tree1.getHeight() << '\n';
@@ -38,18 +38,18 @@ int main() {
 
 
 	BinarySearchTree<int> tree2;
-	tree2.insertItem(20);
+	tree2.insert(20);
 
-	tree2.insertItem(10);
+	tree2.insert(10);
 	//tree2.insertItem(3);
-	tree2.insertItem(9);
-	tree2.insertItem(11);
+	tree2.insert(9);
+	tree2.insert(11);
 
-	tree2.insertItem(35);
-	tree2.insertItem(32);
-	tree2.insertItem(33);
+	tree2.insert(35);
+	tree2.insert(32);
+	tree2.insert(33);
 
-	tree2.print();
+	tree2.output();
 
 	std::cout << (equalNodes<int>(tree1, tree2) ? "There are some equal nodes" : "There are NO equal nodes") << '\n';
 }
