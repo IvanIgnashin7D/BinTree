@@ -20,7 +20,6 @@ private:
 	};
 
 	Node* root_;
-	//static Node* staticroot_;
 
 	void clear(Node* node) {
 		if (node) {
