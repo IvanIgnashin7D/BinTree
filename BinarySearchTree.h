@@ -20,7 +20,7 @@ private:
 	};
 
 	Node* root_;
-	static Node* staticroot_;
+	//static Node* staticroot_;
 
 	void clear(Node* node) {
 		if (node) {
@@ -31,7 +31,7 @@ private:
 	}
 
 public:
-	BinarySearchTree() : root_(nullptr) { staticroot_ = root_; }
+	BinarySearchTree() : root_(nullptr) {}
 
 	BinarySearchTree(BinarySearchTree&& other) noexcept
 		: root_(other.root_)
@@ -75,7 +75,6 @@ public:
 	bool insertItem(T key) {
 		if (root_ == nullptr) {
 			root_ = new Node(key);
-			staticroot_ = root_;
 			return true;
 		}
 		
@@ -129,7 +128,7 @@ public:
 		}
 	}
 
-	void print(Node* node = staticroot_, int space = 0, int step = 4) {
+	void print(Node* node, int space = 0, int step = 4) {
 		if (node == nullptr) {
 			return;
 		}
@@ -147,7 +146,12 @@ public:
 		print(node->left_, space);
 	}
 
-	int getNumberOfNodes(Node* node = staticroot_) {
+	void print() {
+		print(root_);
+	}
+
+
+	int getNumberOfNodes(Node* node) {
 		int res = 0;
 		if (!node)
 			return 0;
@@ -160,13 +164,22 @@ public:
 		return res;
 	}
 
-	int getHeight(Node* node = staticroot_) {
+	int getNumberOfNodes() {
+		return getNumberOfNodes(root_);
+	}
+
+
+	int getHeight(Node* node) {
 		if (node == nullptr) {
 			return 0;
 		}
 		int leftHeight = getHeight(node->left_);
 		int rightHeight = getHeight(node->right_);
 		return std::max(leftHeight, rightHeight) + 1;
+	}
+
+	int getHeight() {
+		return getHeight(root_);
 	}
 
 	void inorderWalkIterative() {
@@ -210,12 +223,16 @@ public:
 		return;
 	}
 
-	void inorderWalk(Node* current = staticroot_) {
+	void inorderWalk(Node* current) {
 		if (current == nullptr) return;
 
 		inorderWalk(current->left_);
 		std::cout << current->key_ << ", ";
 		inorderWalk(current->right_);
+	}
+
+	void inorderWalk() {
+		inorderWalk(root_);
 	}
 
 	void walkByLevels() {
@@ -235,6 +252,3 @@ public:
 		}
 	}
 };
-
-template <class T>
-typename BinarySearchTree<T>::Node* BinarySearchTree<T>::staticroot_ = nullptr;

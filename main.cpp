@@ -21,11 +21,18 @@ int main() {
 	tree1.insertItem(8);
 
 	tree1.print();
-	std::cout << tree1.getNumberOfNodes() << '\n';
-	std::cout << tree1.getHeight() << '\n';
+	std::cout << "Tree1 number of nodes: " << tree1.getNumberOfNodes() << '\n';
+
+	std::cout << "Tree1 height: " << tree1.getHeight() << '\n';
+
+	std::cout << "Tree1 inorderWalkIterative: ";
 	tree1.inorderWalkIterative();
+
+	std::cout << "Tree1 inorderWalk: ";
 	tree1.inorderWalk();
 	std::cout << '\n';
+
+	std::cout << "Tree1 walkByLevels: ";
 	tree1.walkByLevels();
 	std::cout << '\n';
 
