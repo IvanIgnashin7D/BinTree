@@ -127,26 +127,26 @@ public:
 		}
 	}
 
-	void output(Node* node, int space = 0, int step = 4) {
+	void output(Node* node, std::ostream& out, int space = 0) {
 		if (node == nullptr) {
 			return;
 		}
 
-		space += step;
+		space += 4;
 
-		output(node->right_, space);
+		output(node->right_, out, space);
 
-		std::cout << '\n';
-		for (int i = step; i < space; i++) {
-			std::cout << ' ';
+		out << '\n';
+		for (int i = 4; i < space; i++) {
+			out << ' ';
 		}
-		std::cout << "--(" << node->key_ << ')' << '\n';
+		out << "--(" << node->key_ << ')' << '\n';
 
-		output(node->left_, space);
+		output(node->left_, out, space);
 	}
 
-	void output() {
-		output(root_);
+	void output(std::ostream& out) {
+		output(root_, out);
 	}
 
 

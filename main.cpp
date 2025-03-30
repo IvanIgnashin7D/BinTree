@@ -20,7 +20,7 @@ int main() {
 	tree1.insert(7);
 	tree1.insert(8);
 
-	tree1.output();
+	tree1.output(std::cout);
 	std::cout << "Tree1 number of nodes: " << tree1.getNumberOfNodes() << '\n';
 
 	std::cout << "Tree1 height: " << tree1.getHeight() << '\n';
@@ -49,7 +49,7 @@ int main() {
 	tree2.insert(32);
 	tree2.insert(33);
 
-	tree2.output();
+	tree2.output(std::cout);
 
 	std::cout << (equalNodes<int>(tree1, tree2) ? "There are some equal nodes" : "There are NO equal nodes") << '\n';
 }
