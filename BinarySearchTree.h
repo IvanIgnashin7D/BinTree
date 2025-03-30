@@ -55,7 +55,7 @@ public:
 	BinarySearchTree& operator=(const BinarySearchTree&) = delete;
 
 
-	Node* searchIterative(T key) {
+	Node* searchIterative(const T key) {
 		if (root_ == nullptr)
 			return nullptr;
 		Node* current = root_;
