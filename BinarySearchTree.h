@@ -145,28 +145,9 @@ public:
 		}
 	}
 
-	void output2(Node* node, std::ostream& out, int space = 0) {
-		if (node == nullptr) {
-			return;
-		}
-
-		space += 4;
-
-		output2(node->right_, out, space);
-
-		out << '\n';
-		for (int i = 4; i < space; i++) {
-			out << ' ';
-		}
-		out << "--(" << node->key_ << ')' << '\n';
-
-		output2(node->left_, out, space);
-	}
-
 	void output(std::ostream& out) {
 		output(root_, out);
 		out << '\n';
-		output2(root_, out);
 	}
 
 
