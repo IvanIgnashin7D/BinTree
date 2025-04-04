@@ -127,14 +127,32 @@ public:
 		}
 	}
 
-	void output(Node* node, std::ostream& out, int space = 0) {
+	void output(Node* node, std::ostream& out) {
+		if (!node) return;
+
+		out << node->key_;
+
+		if (node->left_ || node->right_) {
+			out << '(';
+			output(node->left_, out);
+			out << ')';
+
+			if (node->right_) {
+				out << '(';
+				output(node->right_, out);
+				out << ')';
+			}
+		}
+	}
+
+	void output2(Node* node, std::ostream& out, int space = 0) {
 		if (node == nullptr) {
 			return;
 		}
 
 		space += 4;
 
-		output(node->right_, out, space);
+		output2(node->right_, out, space);
 
 		out << '\n';
 		for (int i = 4; i < space; i++) {
@@ -142,11 +160,13 @@ public:
 		}
 		out << "--(" << node->key_ << ')' << '\n';
 
-		output(node->left_, out, space);
+		output2(node->left_, out, space);
 	}
 
 	void output(std::ostream& out) {
 		output(root_, out);
+		out << '\n';
+		output2(root_, out);
 	}
 
 
