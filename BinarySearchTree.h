@@ -92,8 +92,8 @@ public:
 			root_ = new Node(key);
 			return true;
 		}
-		
-		if (searchIterative(key)) 
+
+		if (searchIterative(key))
 			return false;
 
 		Node* current = root_;
