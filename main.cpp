@@ -8,7 +8,7 @@ bool equalNodes(BinarySearchTree<T>& tree1, BinarySearchTree<T>& tree2);
 
 int main() {
 	BinarySearchTree<int> tree1;
-	std::cout << (tree1.searchIterative(1) ? 1 : 0) << '\n';
+	std::cout << (tree1.searchIterative(1) ? "Found" : "Not found") << '\n';
 	tree1.insert(4);
 
 	tree1.insert(2);
@@ -41,7 +41,7 @@ int main() {
 	tree2.insert(20);
 
 	tree2.insert(10);
-	//tree2.insertItem(3);
+	//tree2.insert(3);
 	tree2.insert(9);
 	tree2.insert(11);
 

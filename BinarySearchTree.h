@@ -29,6 +29,22 @@ private:
 		}
 	}
 
+	Node* searchIterative(const T& key) const {
+		if (root_ == nullptr)
+			return nullptr;
+		Node* current = root_;
+		while (true) {
+			if (current->key_ == key)
+				return current;
+			if (current->left_ && current->left_->key_ < key)
+				current = current->left_;
+			if (current->right_ && current->right_->key_ > key)
+				current = current->right_;
+			else
+				return nullptr;
+		}
+	}
+
 public:
 	BinarySearchTree() : root_(nullptr) {}
 
@@ -55,19 +71,19 @@ public:
 	BinarySearchTree& operator=(const BinarySearchTree&) = delete;
 
 
-	Node* searchIterative(const T key) {
+	bool searchIterative(const T& key) {
 		if (root_ == nullptr)
-			return nullptr;
+			return false;
 		Node* current = root_;
 		while (true) {
 			if (current->key_ == key)
-				return current;
+				return true;
 			if (current->left_ && current->left_->key_ < key)
 				current = current->left_;
 			if (current->right_ && current->right_->key_ > key)
 				current = current->right_;
 			else
-				return nullptr;
+				return false;
 		}
 	}
 
@@ -103,18 +119,18 @@ public:
 		}
 	}
 
-	void remove(T key) {
+	bool remove(T key) {
 		Node* current = searchIterative(key);
 		if (current == nullptr)
-			return;
+			return false;
 		if (current->right_ == nullptr) {
 			current = current->left_;
-			return;
+			return true;
 		}
 		if (current->right_->left_ == nullptr) {
 			current->right_->left_ = current->left_;
 			current = current->right_;
-			return;
+			return true;
 		}
 		if (current->right_->left_ != nullptr) {
 			Node* curMin = current;
@@ -123,7 +139,7 @@ public:
 			}
 			current = curMin;
 			remove(curMin->key_);
-			return;
+			return true;
 		}
 	}
 
