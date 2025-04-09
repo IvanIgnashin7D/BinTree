@@ -20,6 +20,13 @@ int main() {
 	tree1.insert(7);
 	tree1.insert(8);
 
+	tree1.insert(15);
+	tree1.insert(13);
+	tree1.insert(12);
+	tree1.insert(14);
+	tree1.output(std::cout);
+	tree1.remove(15);
+
 	tree1.output(std::cout);
 	std::cout << "Tree1 number of nodes: " << tree1.getNumberOfNodes() << '\n';
 

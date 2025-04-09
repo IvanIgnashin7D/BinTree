@@ -71,20 +71,21 @@ public:
 	BinarySearchTree& operator=(const BinarySearchTree&) = delete;
 
 
-	bool searchIterative(const T& key) {
+	Node* searchIterative(const T& key) {
 		if (root_ == nullptr)
-			return false;
+			return nullptr;
 		Node* current = root_;
-		while (true) {
+		while (current) {
 			if (current->key_ == key)
-				return true;
-			if (current->left_ && current->left_->key_ < key)
+				return current;
+			if (current->left_ && current->left_->key_ >= key)
 				current = current->left_;
-			if (current->right_ && current->right_->key_ > key)
+			if (current->right_ && current->right_->key_ <= key)
 				current = current->right_;
 			else
-				return false;
+				break;
 		}
+		return nullptr;
 	}
 
 	bool insert(T key) {
@@ -120,27 +121,51 @@ public:
 	}
 
 	bool remove(T key) {
-		Node* current = searchIterative(key);
-		if (current == nullptr)
+		Node** current_ptr = &root_;
+		Node* current = root_;
+
+		while (current != nullptr && current->key_ != key) {
+			if (key < current->key_) {
+				current_ptr = &current->left_;
+				current = current->left_;
+			}
+			else {
+				current_ptr = &current->right_;
+				current = current->right_;
+			}
+		}
+
+		if (current == nullptr) {
 			return false;
+		}
+
 		if (current->right_ == nullptr) {
-			current = current->left_;
+			*current_ptr = current->left_;
+			delete current;
 			return true;
 		}
+
 		if (current->right_->left_ == nullptr) {
 			current->right_->left_ = current->left_;
-			current = current->right_;
+			*current_ptr = current->right_;
+			delete current;
 			return true;
 		}
-		if (current->right_->left_ != nullptr) {
-			Node* curMin = current;
-			while (curMin->left_ != nullptr) {
-				curMin = curMin->left_;
-			}
-			current = curMin;
-			remove(curMin->key_);
-			return true;
+
+		Node** min_ptr = &current->right_;
+		Node* min_node = current->right_;
+		while (min_node->left_ != nullptr) {
+			min_ptr = &min_node->left_;
+			min_node = min_node->left_;
 		}
+
+		*min_ptr = min_node->right_;
+		min_node->left_ = current->left_;
+		min_node->right_ = current->right_;
+		*current_ptr = min_node;
+		delete current;
+
+		return true;
 	}
 
 	void output(Node* node, std::ostream& out) const {
