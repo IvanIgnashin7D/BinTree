@@ -143,7 +143,7 @@ public:
 		}
 	}
 
-	void output(Node* node, std::ostream& out) {
+	void output(Node* node, std::ostream& out) const {
 		if (!node) return;
 
 		out << node->key_;
@@ -161,13 +161,13 @@ public:
 		}
 	}
 
-	void output(std::ostream& out) {
+	void output(std::ostream& out) const {
 		output(root_, out);
 		out << '\n';
 	}
 
 
-	int getNumberOfNodes(Node* node) {
+	int getNumberOfNodes(Node* node) const {
 		int res = 0;
 		if (!node)
 			return 0;
@@ -180,12 +180,12 @@ public:
 		return res;
 	}
 
-	int getNumberOfNodes() {
+	int getNumberOfNodes() const {
 		return getNumberOfNodes(root_);
 	}
 
 
-	int getHeight(Node* node) {
+	int getHeight(Node* node) const {
 		if (node == nullptr) {
 			return 0;
 		}
@@ -194,11 +194,11 @@ public:
 		return std::max(leftHeight, rightHeight) + 1;
 	}
 
-	int getHeight() {
+	int getHeight() const {
 		return getHeight(root_);
 	}
 
-	void inorderWalkIterative() {
+	void inorderWalkIterative() const {
 		std::vector<T> result;
 		std::stack<Node*> stack;
 		Node* current = root_;
@@ -220,7 +220,7 @@ public:
 		std::cout << '\n';
 	}
 
-	void inorderWalkIterative(std::vector<T> &result) {
+	void inorderWalkIterative(std::vector<T> &result) const {
 		std::stack<Node*> stack;
 		Node* current = root_;
 
@@ -239,7 +239,7 @@ public:
 		return;
 	}
 
-	void inorderWalk(Node* current) {
+	void inorderWalk(Node* current) const {
 		if (current == nullptr) return;
 
 		inorderWalk(current->left_);
@@ -247,11 +247,11 @@ public:
 		inorderWalk(current->right_);
 	}
 
-	void inorderWalk() {
+	void inorderWalk() const {
 		inorderWalk(root_);
 	}
 
-	void walkByLevels() {
+	void walkByLevels() const {
 		if (!root_) return;
 
 		QueueVector<Node*> q(2);
