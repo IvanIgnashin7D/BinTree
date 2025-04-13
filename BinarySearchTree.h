@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <stack>
+//#include <stack>
+#include "MyStack.h"
 #include "QueueVector.h"
 
 template <class T>
@@ -225,7 +226,7 @@ public:
 
 	void inorderWalkIterative() const {
 		std::vector<T> result;
-		std::stack<Node*> stack;
+		StackList<Node*> stack;
 		Node* current = root_;
 
 		while (current != nullptr || !stack.empty()) {
@@ -246,7 +247,7 @@ public:
 	}
 
 	void inorderWalkIterative(std::vector<T> &result) const {
-		std::stack<Node*> stack;
+		StackList<Node*> stack;
 		Node* current = root_;
 
 		while (current != nullptr || !stack.empty()) {
