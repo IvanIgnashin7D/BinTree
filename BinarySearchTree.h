@@ -121,16 +121,15 @@ public:
 	}
 
 	bool remove(T key) {
-		Node** current_ptr = &root_;
 		Node* current = root_;
+		Node* parent = nullptr;
 
 		while (current != nullptr && current->key_ != key) {
+			parent = current;
 			if (key < current->key_) {
-				current_ptr = &current->left_;
 				current = current->left_;
 			}
 			else {
-				current_ptr = &current->right_;
 				current = current->right_;
 			}
 		}
@@ -140,31 +139,62 @@ public:
 		}
 
 		if (current->right_ == nullptr) {
-			*current_ptr = current->left_;
+			if (parent == nullptr) {
+				root_ = current->left_;
+			}
+			else {
+				if (current == parent->left_) {
+					parent->left_ = current->left_;
+				}
+				else {
+					parent->right_ = current->left_;
+				}
+			}
 			delete current;
 			return true;
 		}
 
 		if (current->right_->left_ == nullptr) {
 			current->right_->left_ = current->left_;
-			*current_ptr = current->right_;
+			if (parent == nullptr) {
+				root_ = current->right_;
+			}
+			else {
+				if (current == parent->left_) {
+					parent->left_ = current->right_;
+				}
+				else {
+					parent->right_ = current->right_;
+				}
+			}
 			delete current;
 			return true;
 		}
 
-		Node** min_ptr = &current->right_;
-		Node* min_node = current->right_;
+		Node* min_parent = current->right_;
+		Node* min_node = current->right_->left_;
 		while (min_node->left_ != nullptr) {
-			min_ptr = &min_node->left_;
+			min_parent = min_node;
 			min_node = min_node->left_;
 		}
 
-		*min_ptr = min_node->right_;
+		min_parent->left_ = min_node->right_;
 		min_node->left_ = current->left_;
 		min_node->right_ = current->right_;
-		*current_ptr = min_node;
-		delete current;
 
+		if (parent == nullptr) {
+			root_ = min_node;
+		}
+		else {
+			if (current == parent->left_) {
+				parent->left_ = min_node;
+			}
+			else {
+				parent->right_ = min_node;
+			}
+		}
+
+		delete current;
 		return true;
 	}
 

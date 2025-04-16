@@ -26,6 +26,7 @@ int main() {
 	tree1.insert(14);
 	tree1.output(std::cout);
 	tree1.remove(15);
+	tree1.remove(4);
 
 	tree1.output(std::cout);
 	std::cout << "Tree1 number of nodes: " << tree1.getNumberOfNodes() << '\n';
